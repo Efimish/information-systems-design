@@ -1,8 +1,8 @@
 {
-  "name": "practice-1",
+  "name": "practice-2",
   "version": "1.0.0",
   "main": "main.ts",
-  "description": "first practice ()",
+  "description": "second practice (variant 8)",
   "scripts": {
     "start": "npx ts-node src/main.ts"
   },
