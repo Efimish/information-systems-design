@@ -8,6 +8,13 @@
   },
   "author": "Efim",
   "license": "UNLICENSED",
+  "engines": {
+    "node": "22.6.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Efimish/information-systems-design"
+  },
   "devDependencies": {
     "@types/node": "^22.5.4",
     "ts-node": "^10.9.2",
