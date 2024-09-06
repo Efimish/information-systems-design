@@ -56,6 +56,34 @@ class PassedCar {
     }
 }
 
+/**
+ * Class representing a registered car that passed the checkpoint.
+ * 
+ * Класс, представляющий зарегистрированный автомобиль, прошедший контрольную точку.
+ */
+class RegistredPassedCar extends PassedCar {
+    owner: string;
+
+    constructor(date: string, number: string, owner: string) {
+        super(date, number);
+        this.owner = owner;
+    }
+}
+
+/**
+ * Class representing a car that passed the checkpoint with speed.
+ * 
+ * Класс, представляющий автомобиль, прошедший контрольную точку с указанием скорости.
+ */
+class PassedCarWithSpeed extends PassedCar {
+    speed: number;
+
+    constructor(date: string, number: string, speed: number) {
+        super(date, number);
+        this.speed = speed;
+    }
+}
+
 import * as fs from 'fs';
 // текст из файла, сразу уберем лишние пробелы и разобьем на строки
 const lines = fs.readFileSync('data.txt').toString()
