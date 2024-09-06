@@ -30,6 +30,15 @@ function parseDate(dateString: string): Date {
 }
 
 /**
+ * Checks if a string is a valid number.
+ * 
+ * Проверяет, является ли строка допустимым числом.
+ */
+function isValidNumber(str: string): boolean {
+    return !isNaN(Number(str));
+}
+
+/**
  * Tests a car number string and converts it to UpperCase.
  * Example: 'a123bc 123' -> 'A123BC 123'
  * 
@@ -84,19 +93,49 @@ class PassedCarWithSpeed extends PassedCar {
     }
 }
 
+
 import * as fs from 'fs';
-// текст из файла, сразу уберем лишние пробелы и разобьем на строки
+// Текст из файла, сразу уберем лишние пробелы и разобьем на строки.
+// Уберём пустые строки.
 const lines = fs.readFileSync('data.txt').toString()
     .trim()
     .split('\n')
-    .map(line => line.trim());
+    .map(line => line.trim())
+    .filter(line => line.length > 0);
 
 for (const line of lines) {
-    console.log(' --- Получена строка:', line);
-    const [date, number] = line.replaceAll('"', '').split('  ');
+    console.log('\n --- Получена строка:', line);
+    const parts = line.replaceAll('"', '').split('  ');
+
+    // какие данные мы получили? какой класс из них создать?
+    let typeOfCar: 'basic' | 'registered' | 'with speed' = 'basic';
+
     try {
-        const car = new PassedCar(date, number);
-        console.log('Машина успешно создана:', car);
+        if (parts.length > 2) {
+            if (isValidNumber(parts[2])) typeOfCar = 'with speed';
+            else typeOfCar = 'registered';
+        }
+        else if (parts.length < 2) throw new Error('Недостаточно данных');
+        switch (typeOfCar) {
+            case 'basic': {
+                const [date, number] = parts;
+                const car = new PassedCar(date, number);
+                console.log('Машина успешно создана:', car);
+                break;
+            };
+            case 'registered': {
+                const [date, number, owner] = parts;
+                const car = new RegistredPassedCar(date, number, owner);
+                console.log('Зарегистрированная Машина успешно создана:', car);
+                break;
+            };
+            case 'with speed': {
+                const [date, number, speed] = parts;
+                const car = new PassedCarWithSpeed(date, number, Number(speed));
+                console.log('Машина со скоростью успешно создана:', car);
+                break;
+            };
+        }
     } catch (error) {
         console.error(error.message);
     }
