@@ -27,7 +27,7 @@ const dateStringRegex = /^\d{4}.\d{2}.\d{2}$/;
  */
 function parseDate(dateString: string): Date {
     if (!dateStringRegex.test(dateString)) throw new Error('Неверный формат даты');
-    const [year, month, day] = dateString.trim().split('.').map(x => parseInt(x));
+    const [year, month, day] = dateString.trim().split('.').map(Number);
     return new Date(year, month - 1, day);
 }
 
