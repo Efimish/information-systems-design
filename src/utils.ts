@@ -1,5 +1,5 @@
 const stringRegexp = /^".*"$/;
-const dateRegexp = /^\d{4}.\d{2}.\d{2}$/;
+const dateRegexp = /^\d{4}\.\d{2}\.\d{2}$/;
 const carNumberRegexp = /^[a-zа-я]\d{3}[a-zа-я]{2} \d{2,3}$/i;
 
 // checkers
@@ -17,7 +17,7 @@ export function checkCarNumber(text: string) {
 }
 
 export function checkNumber(str: string): boolean {
-    return !isNaN(Number(str));
+    return !isNaN(Number(str)) && str.length > 0;
 }
 
 // parsers
@@ -36,4 +36,9 @@ export function parseDate(text: string): Date {
 export function parseCarNumber(text: string): string {
     if (!checkCarNumber(text)) throw new Error('Неверный формат номера автомобиля');
     return text.toUpperCase();
+}
+
+export function parseNumber(text: string) {
+    if (!checkNumber(text)) throw new Error('Неверный формат числа');
+    return Number(text);
 }
